@@ -1,0 +1,7 @@
+node_modules/
+external_package/
+dist/
+coverage/
+
+# Files
+package-lock.json
