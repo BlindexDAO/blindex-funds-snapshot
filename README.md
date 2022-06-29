@@ -41,10 +41,10 @@ It will print the results in the following format:
       userShare: number // User share of the total funds for distribution (a decimal number between 0 to 1)
     },
     WALLET_ADDRESS: {
-      lockedStakesUsd: number, // Total locked stakes converted to USD
-      bdxHoldingsInUsd: number, // Total BDX in wallet, available rewards and in vesting
-      totalUserHoldingsUsd: number, // Total user holdings in USD
-      userShare: number // User share of the total funds for distribution (a decimal number between 0 to 1)
+      lockedStakesUsd: number,
+      bdxHoldingsInUsd: number,
+      totalUserHoldingsUsd: number,
+      userShare: number
     }
     .
     .
