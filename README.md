@@ -5,8 +5,8 @@ This repository contains the scripts for calculating the total funds holdings in
 # Environment variables
 Create `.env` file with the following keys:
 ```
-RPC_ENDPOINT = ENTER_YOUR_RPC_ENDPOINT_URL
-COVALENTHQ_API_KEY = ENTER_YOUR_COVALENTHQ_API_KEY
+RPC_ENDPOINT = <ENTER_YOUR_RPC_ENDPOINT_URL>
+COVALENTHQ_API_KEY = <ENTER_YOUR_COVALENTHQ_API_KEY>
 ```
 
 # Install
