@@ -5,6 +5,7 @@ import { Web3Provider } from './web3Provider';
 
 dotenv.config();
 
+// Up to block 4429451
 const lockedStakesWallets = [
   '0xC0F470AceF7e535Fedb3e590d5f01EDE3Afb999c',
   '0xd7ED3F0ff6823e000e08E79C340697545c5925a3',
