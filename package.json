@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/app.ts",
   "scripts": {
-    "print-staking-wallets": "tsc && node dist/print-staking-wallets.js",
-    "print-total-holdings": "tsc && node dist/print-total-holdings.js",
+    "print-staking-wallets": "tsc && node dist/printStakingWallets.js",
+    "print-total-holdings": "tsc && node dist/printTotalHoldings.js",
     "build": "tsc",
     "lint": "npx eslint . --ext .js,.ts,.json --fix",
     "format": "npx prettier --write . --loglevel silent",

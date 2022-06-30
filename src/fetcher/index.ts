@@ -96,7 +96,7 @@ export class Fetcher {
     };
   }
 
-  private async getLockedStakesValueUsd(userWallet: string): Promise<number> {
+  private async getLockedStakesValueUsd(userWallet: string, blockNumber: number): Promise<number> {
     const stakingContractsAddresses = Object.keys(this.stakingContracts);
 
     let userTotalUsdValue = 0;
@@ -104,7 +104,7 @@ export class Fetcher {
     for (let index = 0; index < stakingContractsAddresses.length; index++) {
       const stakingRewardAddress = stakingContractsAddresses[index];
       const { symbol, priceUsd } = this.stakingContracts[stakingRewardAddress];
-      const lockedStakes = await this.web3provider.getLockedStakes(stakingRewardAddress, userWallet);
+      const lockedStakes = await this.web3provider.getLockedStakes(stakingRewardAddress, userWallet, blockNumber);
       const amount = lockedStakes.reduce(
         (totalAmount: BigNumber, lockedStake: { amount: BigNumber }) => totalAmount.add(lockedStake.amount),
         BigNumber.from(0)
@@ -138,15 +138,16 @@ export class Fetcher {
     let totalBdxHoldingsUsd = 0;
     let totalBdx = 0;
 
+    const currentBlockNumber = await this.web3provider.getBlockNumber();
     const bdxPrice = await this.getBdxPrice();
 
     for (let index = 0; index < this.userWallets.length; index++) {
       const userWallet = this.userWallets[index];
       console.log(`\n${index + 1} | Fetch locked stakes for user ${userWallet}`);
-      const lockedStakesUsd = await this.getLockedStakesValueUsd(userWallet);
+      const lockedStakesUsd = await this.getLockedStakesValueUsd(userWallet, currentBlockNumber);
       totalLockedStakesValueUsd += lockedStakesUsd;
 
-      const bdxInContracts = await this.getUserBdxHoldingsInContracts(userWallet);
+      const bdxInContracts = await this.getUserBdxHoldingsInContracts(userWallet, currentBlockNumber);
       const bdxInWallet = this.bdxInWalletBalances[userWallet] || 0;
       console.log('BDX in wallet', bdxInWallet);
       const userTotalBdx = bdxInContracts + bdxInWallet;
@@ -180,18 +181,18 @@ export class Fetcher {
     );
   }
 
-  private async getUserBdxHoldingsInContracts(userWallet: string): Promise<number> {
+  private async getUserBdxHoldingsInContracts(userWallet: string, blockNumber: number): Promise<number> {
     const contracts = Object.keys(this.stakingContracts);
 
     let totalBdxRewarded = 0;
     for (let index = 0; index < contracts.length; index++) {
       const addr = contracts[index];
-      const availableBdxRewards = await this.web3provider.getRewardedBdx(addr, userWallet);
+      const availableBdxRewards = await this.web3provider.getRewardedBdx(addr, userWallet, blockNumber);
       totalBdxRewarded += Number(availableBdxRewards.toString()) / 10 ** 18;
     }
     console.log('BDX rewards', totalBdxRewarded);
 
-    const bdxInVesting = await this.web3provider.getBdxInVesting(userWallet);
+    const bdxInVesting = await this.web3provider.getBdxInVesting(userWallet, blockNumber);
     console.log('BDX in vesting', bdxInVesting);
 
     const totalBdx = totalBdxRewarded + bdxInVesting;

@@ -1,6 +1,6 @@
-import { JsonRpcProvider, StaticJsonRpcProvider, Block, BlockTag, Log } from '@ethersproject/providers';
+import { JsonRpcProvider, StaticJsonRpcProvider, Log } from '@ethersproject/providers';
 import { BigNumber, Contract, ethers } from 'ethers';
-import { ERC20ABI, StakingRewardABI, VestingABI, VestingContractAddress } from '../consts';
+import { StakingRewardABI, VestingABI, VestingContractAddress } from '../consts';
 
 export class Web3Provider {
   public instance: JsonRpcProvider;
@@ -15,31 +15,21 @@ export class Web3Provider {
     return this.instance.getBlockNumber();
   }
 
-  async getBlock(blockHashOrBlockTag: BlockTag | Promise<BlockTag>): Promise<Block> {
-    return this.instance.getBlock(blockHashOrBlockTag);
-  }
-
-  async getERC20TotalSupply(tokenAddress: string): Promise<BigNumber> {
-    const erc20Contract = new Contract(tokenAddress, ERC20ABI, this.instance);
-    const totalSupply = await erc20Contract.totalSupply();
-    return totalSupply;
-  }
-
-  async getLockedStakes(stakingRewardAddress: string, userWallet: string) {
+  async getLockedStakes(stakingRewardAddress: string, userWallet: string, blockNumber: number) {
     const stakingRewardContract = new Contract(stakingRewardAddress, StakingRewardABI, this.instance);
-    const lockedStakes = await stakingRewardContract.lockedStakesOf(userWallet.toLowerCase());
+    const lockedStakes = await stakingRewardContract.lockedStakesOf(userWallet.toLowerCase(), { blockTag: blockNumber });
     return lockedStakes;
   }
 
-  async getRewardedBdx(stakingRewardAddress: string, userWallet: string): Promise<BigNumber> {
+  async getRewardedBdx(stakingRewardAddress: string, userWallet: string, blockNumber: number): Promise<BigNumber> {
     const stakingRewardContract = new Contract(stakingRewardAddress, StakingRewardABI, this.instance);
-    const availableBdxRewards = await stakingRewardContract.earned(userWallet.toLowerCase());
+    const availableBdxRewards = await stakingRewardContract.earned(userWallet.toLowerCase(), { blockTag: blockNumber });
     return availableBdxRewards;
   }
 
-  async getBdxInVesting(userWallet: string): Promise<number> {
+  async getBdxInVesting(userWallet: string, blockNumber: number): Promise<number> {
     const vestingContract = new Contract(VestingContractAddress, VestingABI, this.instance);
-    const vestingSchedules = await vestingContract.vestingSchedulesOf(userWallet);
+    const vestingSchedules = await vestingContract.vestingSchedulesOf(userWallet, { blockTag: blockNumber });
 
     return vestingSchedules
       .map(
