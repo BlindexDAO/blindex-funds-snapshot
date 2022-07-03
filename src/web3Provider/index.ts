@@ -36,7 +36,7 @@ export class Web3Provider {
         vestingSchedule =>
           Number(vestingSchedule.totalVestedAmount_d18.toString()) / 10 ** 18 - Number(vestingSchedule.releasedAmount_d18.toString()) / 10 ** 18
       )
-      .reduce((accumulator, curr) => accumulator + curr, 0);
+      .reduce((accumulatedBdx, bdxInShedule) => accumulatedBdx + bdxInShedule, 0);
   }
 
   async fetchStakingRewardEvents(fromBlock: number, toBlock: number, stakingRewardAddress: string): Promise<Log[]> {
