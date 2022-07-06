@@ -21,6 +21,12 @@ export class Web3Provider {
     return lockedStakes;
   }
 
+  async getUnlockedStakes(stakingRewardAddress: string, userWallet: string, blockNumber: number): Promise<BigNumber> {
+    const stakingRewardContract = new Contract(stakingRewardAddress, StakingRewardABI, this.instance);
+    const unlockedBalance = await stakingRewardContract.unlockedBalanceOf(userWallet.toLowerCase(), { blockTag: blockNumber });
+    return unlockedBalance;
+  }
+
   async getRewardedBdx(stakingRewardAddress: string, userWallet: string, blockNumber: number): Promise<BigNumber> {
     const stakingRewardContract = new Contract(stakingRewardAddress, StakingRewardABI, this.instance);
     const availableBdxRewards = await stakingRewardContract.earned(userWallet.toLowerCase(), { blockTag: blockNumber });

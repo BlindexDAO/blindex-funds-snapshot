@@ -6,6 +6,9 @@
   "scripts": {
     "print-staking-wallets": "tsc && node dist/printStakingWallets.js",
     "print-total-holdings": "tsc && node dist/printTotalHoldings.js",
+    "print-liquid-lp-tokens": "tsc && node dist/printLiquidLpTokens.js",
+    "print-unlocked-stakes": "tsc && node dist/printUnlockedStakes.js",
+    "print-lp-tokens-price": "tsc && node dist/printLpTokensPrice.js",
     "build": "tsc",
     "lint": "npx eslint . --ext .js,.ts,.json --fix",
     "format": "npx prettier --write . --loglevel silent",

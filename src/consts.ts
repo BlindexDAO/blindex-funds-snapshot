@@ -1486,6 +1486,7 @@ export const BXAU = '0xA4A8Fb98A26E5314397170e5D12Da8B73Dc2CEB5';
 export const BGBP = '0x2415E222755fD1F07B0A565eB4F036e410852eE0';
 export const TeamLockingContract = '0x4292Ef0D3AfA1052605e2D706349dFe3A481cDcF';
 export const TreasuryAddress = '0x18bc35c3b74b35c70cff0ec14ad62f4a8c2e679c';
+export const DevTreasuryAddress = '0x48e2b176db179d81135052f4bee7fb1129f270dd';
 export const WRBTC_BDXStakingReward = '0x15f2F01159a73A56a7149096942Ae4e2c019cbEf';
 export const ETHs_BDXStakingReward = '0x3e64c5DC35546D6feF70346A395ed8E21C4A5247';
 export const BDX_BDEUStakingReward = '0x2a5DC95E2F3150Ed52D69aD885EF6844dBED75C8';
@@ -1509,4 +1510,21 @@ export const StakingRewardsAddresses = [
   '0xEAB5B0774D0288724aFD44E6042aC32079Ed99e8',
   '0x08b4580f9262aB46aff69fa1d45BD4a290737c75',
   '0x2Dfa7eC7655c373Ae1Fc6E8b96B5710bD88bD31D'
+];
+
+export const IgnoreAddresses = [
+  BDUS.toLowerCase(),
+  BDEU.toLowerCase(),
+  BXAU.toLowerCase(),
+  BGBP.toLowerCase(),
+  StakingRewardsDistributionContract.toLowerCase(),
+  TeamLockingContract.toLowerCase(),
+  TreasuryAddress.toLowerCase(),
+  WRBTC_BDXStakingReward.toLowerCase(),
+  ETHs_BDXStakingReward.toLowerCase(),
+  BDX_BDEUStakingReward.toLowerCase(),
+  BDX_BDUSStakingReward.toLowerCase(),
+  BDX_BXAUStakingReward.toLowerCase(),
+  BDX_BGBPStakingReward.toLowerCase(),
+  VestingContractAddress.toLowerCase()
 ];

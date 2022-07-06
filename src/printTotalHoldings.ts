@@ -3,6 +3,7 @@ import { CovalentService } from './covalent-service';
 import { Fetcher } from './fetcher';
 import { Web3Provider } from './web3Provider';
 import lockedStakesWallets from './lockedStakesWallets.json';
+import { IgnoreAddresses } from './consts';
 
 dotenv.config();
 
@@ -20,7 +21,7 @@ async function main() {
 
   const allWallets = Array.from(
     new Set([...lockedStakesWallets.map(addr => addr.toLowerCase()), ...Object.keys(bdxInWalletBalances).map(addr => addr.toLowerCase())])
-  );
+  ).filter(wallet => !IgnoreAddresses.includes(wallet));
 
   const fetcher = new Fetcher(web3provider, allWallets, bdxInWalletBalances);
   await fetcher.printTotalHoldings();
